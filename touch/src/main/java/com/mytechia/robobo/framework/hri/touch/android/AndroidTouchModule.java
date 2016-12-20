@@ -12,13 +12,37 @@ import android.view.MotionEvent;
 
 
 import com.mytechia.robobo.framework.RoboboManager;
+import com.mytechia.robobo.framework.exception.ModuleNotFoundException;
 import com.mytechia.robobo.framework.hri.touch.ATouchModule;
 import com.mytechia.robobo.framework.hri.touch.TouchGestureDirection;
+import com.mytechia.robobo.framework.remote_control.remotemodule.IRemoteControlModule;
 
 import java.sql.Timestamp;
 
+/*******************************************************************************
+ *
+ *   Copyright 2016 Mytech Ingenieria Aplicada <http://www.mytechia.com>
+ *   Copyright 2016 Luis Llamas <luis.llamas@mytechia.com>
+ *
+ *   This file is part of Robobo HRI Modules.
+ *
+ *   Robobo HRI Modules is free software: you can redistribute it and/or modify
+ *   it under the terms of the GNU Lesser General Public License as published by
+ *   the Free Software Foundation, either version 3 of the License, or
+ *   (at your option) any later version.
+ *
+ *   Robobo HRI Modules is distributed in the hope that it will be useful,
+ *   but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ *   GNU Lesser General Public License for more details.
+ *
+ *   You should have received a copy of the GNU Lesser General Public License
+ *   along with Robobo HRI Modules.  If not, see <http://www.gnu.org/licenses/>.
+ *
+ ******************************************************************************/
+
 /**
- * Created by luis on 5/4/16.
+ * Implementation of the Robobo touch module using the Android API
  */
 public class AndroidTouchModule extends ATouchModule implements GestureDetector.OnGestureListener {
 
@@ -31,9 +55,14 @@ public class AndroidTouchModule extends ATouchModule implements GestureDetector.
     long startupTime ;
 
     public void startup(RoboboManager manager){
-        Looper.prepare();
+        //Looper.prepare();
         startupTime = System.currentTimeMillis();
         mDetector = new GestureDetectorCompat(manager.getApplicationContext(),this);
+        try {
+            rcmodule = manager.getModuleInstance(IRemoteControlModule.class);
+        } catch (ModuleNotFoundException e) {
+            e.printStackTrace();
+        }
 
     }
 
