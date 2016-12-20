@@ -1,5 +1,3 @@
-package com.mytechia.robobo.framework.hri.touch;
-
 
 /*******************************************************************************
  *
@@ -22,6 +20,9 @@ package com.mytechia.robobo.framework.hri.touch;
  *   along with Robobo HRI Modules.  If not, see <http://www.gnu.org/licenses/>.
  *
  ******************************************************************************/
+package com.mytechia.robobo.framework.hri.touch;
+
+
 
 /**
  * Enum of directions

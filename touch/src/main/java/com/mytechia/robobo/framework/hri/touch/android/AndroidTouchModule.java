@@ -1,24 +1,3 @@
-package com.mytechia.robobo.framework.hri.touch.android;
-
-import android.content.Context;
-import android.graphics.Point;
-import android.graphics.PointF;
-import android.os.Looper;
-import android.support.v4.view.GestureDetectorCompat;
-import android.util.Log;
-import android.view.GestureDetector;
-import android.view.MotionEvent;
-
-
-
-import com.mytechia.robobo.framework.RoboboManager;
-import com.mytechia.robobo.framework.exception.ModuleNotFoundException;
-import com.mytechia.robobo.framework.hri.touch.ATouchModule;
-import com.mytechia.robobo.framework.hri.touch.TouchGestureDirection;
-import com.mytechia.robobo.framework.remote_control.remotemodule.IRemoteControlModule;
-
-import java.sql.Timestamp;
-
 /*******************************************************************************
  *
  *   Copyright 2016 Mytech Ingenieria Aplicada <http://www.mytechia.com>
@@ -40,6 +19,29 @@ import java.sql.Timestamp;
  *   along with Robobo HRI Modules.  If not, see <http://www.gnu.org/licenses/>.
  *
  ******************************************************************************/
+
+
+package com.mytechia.robobo.framework.hri.touch.android;
+
+import android.content.Context;
+import android.graphics.Point;
+import android.graphics.PointF;
+import android.os.Looper;
+import android.support.v4.view.GestureDetectorCompat;
+import android.util.Log;
+import android.view.GestureDetector;
+import android.view.MotionEvent;
+
+
+
+import com.mytechia.robobo.framework.RoboboManager;
+import com.mytechia.robobo.framework.exception.ModuleNotFoundException;
+import com.mytechia.robobo.framework.hri.touch.ATouchModule;
+import com.mytechia.robobo.framework.hri.touch.TouchGestureDirection;
+import com.mytechia.robobo.framework.remote_control.remotemodule.IRemoteControlModule;
+
+import java.sql.Timestamp;
+
 
 /**
  * Implementation of the Robobo touch module using the Android API

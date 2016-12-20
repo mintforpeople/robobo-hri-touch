@@ -1,10 +1,3 @@
-package com.mytechia.robobo.framework.hri.touch;
-
-import android.content.Context;
-import android.view.MotionEvent;
-
-import com.mytechia.robobo.framework.IModule;
-
 
 /*******************************************************************************
  *
@@ -27,6 +20,14 @@ import com.mytechia.robobo.framework.IModule;
  *   along with Robobo HRI Modules.  If not, see <http://www.gnu.org/licenses/>.
  *
  ******************************************************************************/
+package com.mytechia.robobo.framework.hri.touch;
+
+import android.content.Context;
+import android.view.MotionEvent;
+
+import com.mytechia.robobo.framework.IModule;
+
+
 public interface ITouchModule extends IModule{
 
     /**

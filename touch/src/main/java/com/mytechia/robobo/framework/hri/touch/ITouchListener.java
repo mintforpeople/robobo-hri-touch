@@ -1,4 +1,3 @@
-package com.mytechia.robobo.framework.hri.touch;
 /*******************************************************************************
  *
  *   Copyright 2016 Mytech Ingenieria Aplicada <http://www.mytechia.com>
@@ -20,6 +19,8 @@ package com.mytechia.robobo.framework.hri.touch;
  *   along with Robobo HRI Modules.  If not, see <http://www.gnu.org/licenses/>.
  *
  ******************************************************************************/
+package com.mytechia.robobo.framework.hri.touch;
+
 
 /**
  * Interface of the touch listener

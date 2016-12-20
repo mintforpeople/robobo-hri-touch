@@ -1,13 +1,3 @@
-package com.mytechia.robobo.framework.hri.touch;
-
-import android.util.Log;
-
-import com.mytechia.robobo.framework.remote_control.remotemodule.IRemoteControlModule;
-import com.mytechia.robobo.framework.remote_control.remotemodule.Status;
-
-import java.util.HashSet;
-
-
 /*******************************************************************************
  *
  *   Copyright 2016 Mytech Ingenieria Aplicada <http://www.mytechia.com>
@@ -29,6 +19,18 @@ import java.util.HashSet;
  *   along with Robobo HRI Modules.  If not, see <http://www.gnu.org/licenses/>.
  *
  ******************************************************************************/
+
+package com.mytechia.robobo.framework.hri.touch;
+
+import android.util.Log;
+
+import com.mytechia.robobo.framework.remote_control.remotemodule.IRemoteControlModule;
+import com.mytechia.robobo.framework.remote_control.remotemodule.Status;
+
+import java.util.HashSet;
+
+
+
 
 /**
  * Abstract class that manages listeners
