@@ -1,1 +1,1 @@
-include ':app', ':touch', ':remote-control'
+include ':app', ':touch'
