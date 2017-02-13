@@ -29,9 +29,10 @@ import android.graphics.PointF;
 import android.os.Looper;
 import android.support.v4.view.GestureDetectorCompat;
 import android.util.Log;
+import android.view.Display;
 import android.view.GestureDetector;
 import android.view.MotionEvent;
-
+import android.view.WindowManager;
 
 
 import com.mytechia.robobo.framework.RoboboManager;
@@ -54,11 +55,21 @@ public class AndroidTouchModule extends ATouchModule implements GestureDetector.
     public  AndroidTouchModule(){
         super();
     }
-    long startupTime ;
+    private long startupTime ;
+    private int display_width;
+    private int display_height;
 
     public void startup(RoboboManager manager){
         //Looper.prepare();
         startupTime = System.currentTimeMillis();
+
+        WindowManager wm = (WindowManager) manager.getApplicationContext().getSystemService(Context.WINDOW_SERVICE);
+        Display display = wm.getDefaultDisplay();
+        Point size = new Point();
+        display.getSize(size);
+        display_width = size.x;
+        display_height = size.y;
+
         mDetector = new GestureDetectorCompat(manager.getApplicationContext(),this);
         try {
             rcmodule = manager.getModuleInstance(IRemoteControlModule.class);
@@ -118,7 +129,7 @@ public class AndroidTouchModule extends ATouchModule implements GestureDetector.
             onLongPress(motionEvent);
 
         }else {
-            notifyTap(Math.round(coords.x), Math.round(coords.y));
+            notifyTap(Math.round((coords.x/display_width)*100), Math.round((coords.y/display_height)*100));
         }
         return false;
     }
@@ -154,7 +165,7 @@ public class AndroidTouchModule extends ATouchModule implements GestureDetector.
         Log.d("AT_module","onLongPress");
         MotionEvent.PointerCoords coords = new MotionEvent.PointerCoords();
         motionEvent.getPointerCoords(0,coords);
-        notifyTouch(Math.round(coords.x), Math.round(coords.y));
+        notifyTouch(Math.round((coords.x/display_width)*100), Math.round((coords.y/display_height)*100));
 
     }
 
