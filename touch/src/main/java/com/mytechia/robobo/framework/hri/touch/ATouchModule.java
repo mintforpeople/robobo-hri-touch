@@ -24,6 +24,8 @@ package com.mytechia.robobo.framework.hri.touch;
 
 import android.util.Log;
 
+import com.mytechia.robobo.framework.LogLvl;
+import com.mytechia.robobo.framework.RoboboManager;
 import com.mytechia.robobo.framework.remote_control.remotemodule.IRemoteControlModule;
 import com.mytechia.robobo.framework.remote_control.remotemodule.Status;
 
@@ -38,7 +40,7 @@ import java.util.HashSet;
 public abstract class ATouchModule implements ITouchModule {
     private HashSet<ITouchListener> listeners;
     protected IRemoteControlModule rcmodule = null;
-
+    protected RoboboManager m;
     private String TAG = "ATOUCHMODULE";
     public ATouchModule(){
         listeners = new HashSet<ITouchListener>();
@@ -53,7 +55,7 @@ public abstract class ATouchModule implements ITouchModule {
         for (ITouchListener listener:listeners){
             listener.tap(x, y);
         }
-        Log.d(TAG,"-----TAP-----");
+        m.log(LogLvl.TRACE, TAG,"-----TAP-----");
         if (rcmodule!=null) {
             Status status = new Status("TAP");
             status.putContents("coordx",x.toString());
@@ -74,7 +76,7 @@ public abstract class ATouchModule implements ITouchModule {
         for (ITouchListener listener:listeners){
             listener.fling(dir,angle,time,distance);
         }
-        Log.d(TAG,"-----FLING-----"+Math.toDegrees(angle));
+        m.log(LogLvl.TRACE, TAG,"-----FLING-----"+Math.toDegrees(angle));
         if (rcmodule!=null) {
             Status status = new Status("FLING");
             status.putContents("angle",Math.toDegrees(angle)+"");
@@ -104,9 +106,16 @@ public abstract class ATouchModule implements ITouchModule {
         for (ITouchListener listener:listeners){
             listener.touch(x,y);
         }
+        if (rcmodule!=null) {
+            Status status = new Status("TAP");
+            status.putContents("coordx",x.toString());
+            status.putContents("coordy",y.toString());
+            Log.d(TAG, status.toString());
+            rcmodule.postStatus(status);
+        }
     }
     public void suscribe(ITouchListener listener){
-        Log.d("AT_module", "Suscribed:"+listener.toString());
+        m.log(TAG, "Suscribed:"+listener.toString());
         listeners.add(listener);
     }
     public void unsuscribe(ITouchListener listener){

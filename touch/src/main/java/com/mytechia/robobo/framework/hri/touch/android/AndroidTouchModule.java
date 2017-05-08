@@ -35,6 +35,7 @@ import android.view.MotionEvent;
 import android.view.WindowManager;
 
 
+import com.mytechia.robobo.framework.LogLvl;
 import com.mytechia.robobo.framework.RoboboManager;
 import com.mytechia.robobo.framework.exception.ModuleNotFoundException;
 import com.mytechia.robobo.framework.hri.touch.ATouchModule;
@@ -60,6 +61,7 @@ public class AndroidTouchModule extends ATouchModule implements GestureDetector.
     private int display_height;
 
     public void startup(RoboboManager manager){
+        m = manager;
         //Looper.prepare();
         startupTime = System.currentTimeMillis();
 
@@ -85,12 +87,12 @@ public class AndroidTouchModule extends ATouchModule implements GestureDetector.
 
     @Override
     public String getModuleInfo() {
-        return null;
+        return "Touch module";
     }
 
     @Override
     public String getModuleVersion() {
-        return null;
+        return "0.3.0";
     }
 
 
@@ -121,9 +123,9 @@ public class AndroidTouchModule extends ATouchModule implements GestureDetector.
     public boolean onSingleTapUp(MotionEvent motionEvent) {
         MotionEvent.PointerCoords coords = new MotionEvent.PointerCoords();
         motionEvent.getPointerCoords(0,coords);
-        Log.d(TAG,"Current "+motionEvent.getEventTime()+"ms");
-        Log.d(TAG,"Event "+motionEvent.getDownTime()+"ms");
-        Log.d(TAG,"Difference "+(motionEvent.getEventTime()-(int)motionEvent.getDownTime())+"ms");
+        m.log(LogLvl.TRACE, TAG,"Current "+motionEvent.getEventTime()+"ms");
+        m.log(LogLvl.TRACE, TAG,"Event "+motionEvent.getDownTime()+"ms");
+        m.log(LogLvl.TRACE, TAG,"Difference "+(motionEvent.getEventTime()-(int)motionEvent.getDownTime())+"ms");
         if((motionEvent.getEventTime()-(int)motionEvent.getDownTime())>=500){
 
             onLongPress(motionEvent);
@@ -137,7 +139,7 @@ public class AndroidTouchModule extends ATouchModule implements GestureDetector.
     @Override
     public boolean onScroll(MotionEvent motionEvent, MotionEvent motionEvent1, float v, float v1) {
 
-        Log.d("AT_module","onScroll");
+        m.log(LogLvl.TRACE, TAG,"onScroll");
         MotionEvent.PointerCoords coords = new MotionEvent.PointerCoords();
         motionEvent.getPointerCoords(0,coords);
         MotionEvent.PointerCoords coords1 = new MotionEvent.PointerCoords();
@@ -162,7 +164,7 @@ public class AndroidTouchModule extends ATouchModule implements GestureDetector.
 
     @Override
     public void onLongPress(MotionEvent motionEvent) {
-        Log.d("AT_module","onLongPress");
+        m.log(LogLvl.TRACE, TAG,"onLongPress");
         MotionEvent.PointerCoords coords = new MotionEvent.PointerCoords();
         motionEvent.getPointerCoords(0,coords);
         notifyTouch(Math.round((coords.x/display_width)*100), Math.round((coords.y/display_height)*100));
@@ -173,7 +175,7 @@ public class AndroidTouchModule extends ATouchModule implements GestureDetector.
     public boolean onFling(MotionEvent motionEvent, MotionEvent motionEvent1, float v, float v1) {
 
         long time =(motionEvent1.getEventTime()-motionEvent.getEventTime());
-        Log.d("AT_module","onFling "+time);
+        m.log(LogLvl.TRACE, TAG,"onFling "+time);
         int x1,x2,y1,y2;
 
         MotionEvent.PointerCoords coords = new MotionEvent.PointerCoords();
@@ -188,14 +190,14 @@ public class AndroidTouchModule extends ATouchModule implements GestureDetector.
 
         x2 = Math.round(coords1.x);
         y2 = Math.round(coords1.y);
-        Log.d("AT_module","x1: "+x1+" x2: "+x2+" y1: "+y1+" y2: "+y2);
+        m.log(LogLvl.TRACE, TAG,"x1: "+x1+" x2: "+x2+" y1: "+y1+" y2: "+y2);
         double distance = Math.sqrt(Math.pow((x2-x1),2)+Math.pow((y2-y1),2));
-        Log.d("AT_module","Distance: "+distance );
+        m.log(LogLvl.TRACE, TAG,"Distance: "+distance );
         int motionx = x1-x2;
         int motiony = y1-y2;
         //y1 - y2 for top left reference system
         double angle = Math.atan2((y1-y2),(x2-x1));
-        Log.d("AT_module","Angle: "+angle);
+        m.log(LogLvl.TRACE, TAG,"Angle: "+angle);
         if (angle<0){angle = Math.PI +(Math.PI+angle);}
         if (Math.abs(motionx)>Math.abs(motiony)){
             if (motionx>=0){
