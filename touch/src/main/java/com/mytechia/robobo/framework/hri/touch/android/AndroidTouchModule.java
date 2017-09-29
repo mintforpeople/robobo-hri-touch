@@ -40,6 +40,7 @@ import com.mytechia.robobo.framework.RoboboManager;
 import com.mytechia.robobo.framework.exception.ModuleNotFoundException;
 import com.mytechia.robobo.framework.hri.touch.ATouchModule;
 import com.mytechia.robobo.framework.hri.touch.TouchGestureDirection;
+import com.mytechia.robobo.framework.power.PowerMode;
 import com.mytechia.robobo.framework.remote_control.remotemodule.IRemoteControlModule;
 
 import java.sql.Timestamp;
@@ -96,7 +97,14 @@ public class AndroidTouchModule extends ATouchModule implements GestureDetector.
     }
 
 
+    private void awakeRobo() {
+        this.m.changePowerModeTo(PowerMode.NORMAL);
+    }
+
+
     public boolean onTouchEvent(MotionEvent event){
+
+        awakeRobo(); //awake the robot on any touch event
 
         return this.mDetector.onTouchEvent(event);
 
@@ -111,16 +119,25 @@ public class AndroidTouchModule extends ATouchModule implements GestureDetector.
 
     @Override
     public boolean onDown(MotionEvent motionEvent) {
+
+        awakeRobo(); //awake the robot on any touch event
+
         return false;
+
     }
 
     @Override
     public void onShowPress(MotionEvent motionEvent) {
 
+        awakeRobo(); //awake the robot on any touch event
+
     }
 
     @Override
     public boolean onSingleTapUp(MotionEvent motionEvent) {
+
+        awakeRobo(); //awake the robot on any touch event
+
         MotionEvent.PointerCoords coords = new MotionEvent.PointerCoords();
         motionEvent.getPointerCoords(0,coords);
         m.log(LogLvl.TRACE, TAG,"Current "+motionEvent.getEventTime()+"ms");
@@ -140,6 +157,9 @@ public class AndroidTouchModule extends ATouchModule implements GestureDetector.
     public boolean onScroll(MotionEvent motionEvent, MotionEvent motionEvent1, float v, float v1) {
 
         m.log(LogLvl.TRACE, TAG,"onScroll");
+
+        awakeRobo(); //awake the robot on any touch event
+
         MotionEvent.PointerCoords coords = new MotionEvent.PointerCoords();
         motionEvent.getPointerCoords(0,coords);
         MotionEvent.PointerCoords coords1 = new MotionEvent.PointerCoords();
@@ -164,6 +184,9 @@ public class AndroidTouchModule extends ATouchModule implements GestureDetector.
 
     @Override
     public void onLongPress(MotionEvent motionEvent) {
+
+        awakeRobo(); //awake the robot on any touch event
+
         m.log(LogLvl.TRACE, TAG,"onLongPress");
         MotionEvent.PointerCoords coords = new MotionEvent.PointerCoords();
         motionEvent.getPointerCoords(0,coords);
@@ -173,6 +196,8 @@ public class AndroidTouchModule extends ATouchModule implements GestureDetector.
 
     @Override
     public boolean onFling(MotionEvent motionEvent, MotionEvent motionEvent1, float v, float v1) {
+
+        awakeRobo(); //awake the robot on any touch event
 
         long time =(motionEvent1.getEventTime()-motionEvent.getEventTime());
         m.log(LogLvl.TRACE, TAG,"onFling "+time);
